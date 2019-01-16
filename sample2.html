@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Glorious Demoサンプル２</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/@glorious/demo/dist/gdemo.min.css">
+    <style>
+      #container {
+        margin-top: 100px;
+        padding: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div id="wrap">
+      <textarea id="mycode" rows="6" cols="30"></textarea>
+      <button id="btn">実行</button>
+    </div>
+
+    <div id="container"></div>
+
+    
+    
+    <script src="https://unpkg.com/@glorious/demo/dist/gdemo.min.js"></script>
+    <script>
+
+      const gdemo = new GDemo('#container');
+
+      const btn = document.getElementById('btn');
+
+
+      btn.addEventListener('click', () => {
+        const mycode = document.getElementById('mycode');
+        
+        //アニメーション実行中に入力ボックスなどを非表示にする
+        wrap.style.display = 'none';
+        
+        gdemo
+          .openApp('editor')
+          .write(mycode.value, {onCompleteDelay: 1000})
+          .openApp('terminal', {promptString: '$'})
+          .command('node demo.js', {onCompleteDelay: 1500})
+          .respond('Hello Glorious')
+          .end();
+      })
+
+    </script>
+  </body>
+</html>
